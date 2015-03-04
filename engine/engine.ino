@@ -35,7 +35,9 @@ void setup()
 } 
 void move_servos(int delta_a=0,int delta_b=0,int delta_c=0,int delta_d=0, int delta_e=0,int delta_f=0,int delta_g=0,int delta_h=0)
 {
-	int a=180/delta_a;
+	int a=delta_a;
+        Serial.print("a=");
+        Serial.println(a,DEC);
 	int b=180/delta_b;
 	int c=180/delta_c;
 	int d=180/delta_d;
@@ -45,10 +47,18 @@ void move_servos(int delta_a=0,int delta_b=0,int delta_c=0,int delta_d=0, int de
 	//
 	for(int i=0;i<180;i+=1)
 	{
-		if ((delta_a>0)&&(delta_a<180)&&(i%a))
+		if ((delta_a>0)&&(delta_a<180))
 		{
-			my_servo_a.write(i/a);
-			Serial.write(i/a);
+			my_servo_a.write(i*delta_a/180);
+                        Serial.print("i=");
+                        Serial.println(i,DEC);
+                        Serial.print("i/a=");
+                        Serial.println(i*delta_a/180,DEC);
+                        /*Serial.print("");
+                        Serial.print("I=");
+                        Serial.println(i,DEC);*/
+			
+                      
 		}
 		if ((delta_b>0)&&(delta_b<180)&&(i%b))
 		{
@@ -80,11 +90,11 @@ void move_servos(int delta_a=0,int delta_b=0,int delta_c=0,int delta_d=0, int de
 			my_servo_h.write(i/h);
 		}
 		*/
-		delay(2);
+		delay(100);
 	}
 }
  
 void loop() 
 { 
-  move_servos(10,10,90,90,90,90);
+  move_servos(159,10,90,90,90,90);
 }
